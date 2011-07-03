@@ -25,14 +25,25 @@
 
 class Array
   def sum
+    self.inject(0) {|sum, value| sum += value }
   end
 end
 
 class Squares
+  def initialize(values)
+    @values = values.map { |val| val.to_i }
+  end
+  
   def sum
+    @values.sum
   end
   
   def squares
+    @values.map {|value| value * value}
+  end
+  
+  def to_s
+    "Sum: #{sum}\nSquares: #{squares.join(" ")}\nSum of squares: #{squares.sum}\n"
   end
 end
 
