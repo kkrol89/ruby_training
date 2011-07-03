@@ -20,13 +20,30 @@ require 'rubygems'
 require 'sinatra'
 
 class Node
+  @@nodes = Array.new #class variable
+  
+  def initialize(title, text)
+    @title = title
+    @text = text
+    
+    @id = @@nodes.size+1 #simple id generator
+    
+    @exits = Hash.new
+    
+    @@nodes << self
+  end
+  
   def self.reset
+    @@nodes.clear
   end
   
   def self.add_node(node)
   end
   
   def self.find(id)
+    @@nodes.each do |node|
+      return node if node.id==id
+    end
   end
   
   attr_accessor :id
@@ -35,9 +52,11 @@ class Node
   attr_accessor :exits
   
   def add_exit(text, node)
+    @exits[text] = node
   end
   
   def finish?
+    exits.empty?
   end
 end
 

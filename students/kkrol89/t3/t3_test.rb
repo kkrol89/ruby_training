@@ -69,7 +69,7 @@ class NodeTest < Test::Unit::TestCase
     assert !n1.finish?
   end
 end
-
+=begin
 class NodeViewTest < Test::Unit::TestCase
   def setup
     Node.reset
@@ -115,3 +115,4 @@ class WebApplicationTest < Test::Unit::TestCase
     assert /Welcome to labyrinth/ =~ last_response.body
   end
 end
+=end
