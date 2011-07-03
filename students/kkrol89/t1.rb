@@ -12,7 +12,7 @@
 
 class String
   def valid_roman?
-    # TODO: implement
+    self =~ /^M{0,}(CM|CD|D?C{0,4})(XC|XL|L?X{0,4})(IX|IV|V?I{0,4})$/
   end
   
   def to_i_from_roman
