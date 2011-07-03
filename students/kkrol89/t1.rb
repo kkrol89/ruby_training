@@ -32,7 +32,20 @@ end
 class Integer
   def to_s_roman
     arabic_values_hash = { 1000 => "M", 500 => "D", 100 => "C", 50 => "L", 10 => "X", 5 => "V", 1 => "I"}
-    # TODO: implement
+    weight = 1
+    result = ""
+    self.to_s.reverse.each_char do |symbol| 
+      to_add = case symbol.to_i
+        when 1..3 then arabic_values_hash[weight] * symbol.to_i
+        when 4 then arabic_values_hash[weight] + arabic_values_hash[weight*5]
+        when 5..8 then arabic_values_hash[weight*5] + (arabic_values_hash[weight] * (symbol.to_i - 5) )
+        when 9 then arabic_values_hash[weight] + arabic_values_hash[weight * 10]
+        when 0 then ""
+      end
+      result.insert(0, to_add)
+      weight *= 10
+    end
+    result
   end
 end
 
@@ -49,6 +62,7 @@ end
 
 # Make sure RomanNumbers#convert! ends the program with exit()
 RomanNumerals.new(ARGV).convert! unless ARGV.empty?
+
 
 require 'test/unit'
 
