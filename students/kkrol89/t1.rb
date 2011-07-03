@@ -16,7 +16,20 @@ class String
   end
   
   def to_i_from_roman
-    # TODO: implement
+    roman_values_hash = {"M" => 1000, "D" => 500, "C" => 100, "L" => 50, "X" => 10, "V" => 5, "I" => 1}
+    
+    previous = 0
+    result = 0
+    self.reverse.each_char do |symbol| 
+      symbol_value = roman_values_hash[symbol]
+      if symbol_value < previous
+        result -= symbol_value
+      else
+        result += symbol_value
+      end
+      previous = symbol_value
+    end
+    result
   end
 end
 
