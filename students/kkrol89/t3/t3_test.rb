@@ -1,9 +1,12 @@
-#!/usr/bin/env ruby -rubygems
+#!/usr/bin/env ruby
 #
 # Install rack-test gem:
 #    gem install rack-test
 #
-require 't3'
+
+$LOAD_PATH << '.'
+
+require 't3.rb'
 require 'test/unit'
 require 'rack/test'
 
@@ -95,7 +98,7 @@ class NodeViewTest < Test::Unit::TestCase
   end
 
   def test_have_congratulations
-    assert %r{<p>YOU'RE WINNER !</p>} =~ @finish_view.to_html
+    assert %r{<p>YOU ARE WINNER !</p>} =~ @finish_view.to_html
   end
 end
 
