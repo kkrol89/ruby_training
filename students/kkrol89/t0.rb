@@ -30,7 +30,7 @@ class Count
     @value -= 1
   end
   
-  # Resets the value and returns new value
+  # Resets the value and returns new value (defaults to 0)
   def reset(value=0)
     @value = value
   end
@@ -53,9 +53,9 @@ class CountUI
   # selected action on it
   def run
     puts case @action
-    when "increment" then @count.increment
-    when "decrement" then @count.decrement
-    when "reset" then @count.reset
+      when "increment" then @count.increment
+      when "decrement" then @count.decrement
+      when "reset" then @count.reset
     end
     exit(0)
   end
