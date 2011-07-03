@@ -15,6 +15,10 @@ class String
     self =~ /^M{0,}(CM|CD|D?C{0,4})(XC|XL|L?X{0,4})(IX|IV|V?I{0,4})$/
   end
   
+  def valid_arabic?
+    self =~ /^[0-9]+$/
+  end
+  
   def to_i_from_roman
     roman_values_hash = {"M" => 1000, "D" => 500, "C" => 100, "L" => 50, "X" => 10, "V" => 5, "I" => 1}
     
@@ -55,7 +59,13 @@ class RomanNumerals
   end
   
   def convert!
-    # TODO: implement
+    if @number.valid_arabic?
+      puts @number.to_i.to_s_roman
+    elsif @number.valid_roman?
+      puts @number.to_i_from_roman
+    else
+      puts "Invalid argument: positive integer or roman numeral expected."
+    end
     exit(0) # Finish gracefully by default, change if appropriate
   end
 end
