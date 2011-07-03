@@ -22,11 +22,7 @@ class String
     result = 0
     self.reverse.each_char do |symbol| 
       symbol_value = roman_values_hash[symbol]
-      if symbol_value < previous
-        result -= symbol_value
-      else
-        result += symbol_value
-      end
+      result += (symbol_value < previous ? -symbol_value : symbol_value) #sensitive to IV, XC, XL, etc...
       previous = symbol_value
     end
     result
@@ -35,6 +31,7 @@ end
 
 class Integer
   def to_s_roman
+    arabic_values_hash = { 1000 => "M", 500 => "D", 100 => "C", 50 => "L", 10 => "X", 5 => "V", 1 => "I"}
     # TODO: implement
   end
 end
