@@ -41,6 +41,7 @@ class Node
   end
   
   def self.find(id)
+    id = id.to_i unless id.kind_of? Fixnum
     @@nodes.each do |node|
       return node if node.id==id
     end
@@ -61,11 +62,45 @@ class Node
 end
 
 class NodeView
+  def initialize(node)
+    @node = node
+  end
+  
   def to_html
+        %Q[<html>
+<head>
+  <title>#{@node.title}</title>
+</head>
+<body>
+  <h1>#{@node.id}</h1>
+  <h1>#{@node.title}</h1>
+  <p>#{@node.text}</p> <br />
+  #{connected_nodes_to_html @node}
+</body>
+    ]
+  end
+  
+  def connected_nodes_to_html(node)
+    if node.finish?
+      "<p>YOU ARE WINNER !</p>"
+    else
+      "<ul>" + node.exits.map { |direction, neighbour| "<li><a href=\"/node/#{neighbour.id}\">#{direction}</a></li>" }.join(" ") + "</ul>"
+    end
   end
 end
 
+
+#--- initialization ---
+Node.reset
+@start = Node.new("Start", "Start node")
+@finish = Node.new("Finish", "Finish node")
+@finish2 = Node.new("Finish2", "Second finish node")
+@start.add_exit "forward", @finish
+@start.add_exit "left", @finish2
+#--- end ---
+
 get "/" do
+  "Welcome to labyrinth"
 end
 
 get "/node/:id" do
